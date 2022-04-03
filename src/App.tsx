@@ -1,45 +1,38 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import { useState } from "react";
+import logo from "./logo.svg";
+import { Route, Routes } from "react-router-dom";
+import Home from "./routes";
+import NotFound from "./routes/NotFound";
+import Auth from "./routes/Auth";
+import Dashboard from "./routes/app/Dashboard";
+import { Link } from "react-router-dom";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+      <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/auth">Auth</Link>
+        </li>
+      </ul>
+      <Routes>
+        {/* Index */}
+        <Route path="/" element={<Home />} />
+
+        {/* Auth */}
+        <Route path="/auth" element={<Auth />} />
+
+        {/* App */}
+        <Route path="/dashboard" element={<Dashboard />} />
+
+        {/* 404 Not found */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
