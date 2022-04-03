@@ -1,13 +1,11 @@
-import { useState } from "react";
-import logo from "./logo.svg";
+import * as React from "react";
 import { Route, Routes } from "react-router-dom";
 import Home from "./routes";
 import NotFound from "./routes/NotFound";
 import Auth from "./routes/Auth";
-import Dashboard from "./routes/app/Dashboard";
 import { Link } from "react-router-dom";
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <ul>
@@ -26,13 +24,13 @@ function App() {
         <Route path="/auth" element={<Auth />} />
 
         {/* App */}
-        <Route path="/dashboard" element={<Dashboard />} />
+        {/* <Route path="/dashboard" element={<Dashboard />} /> */}
 
         {/* 404 Not found */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
-}
+};
 
 export default App;
