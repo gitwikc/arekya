@@ -4,6 +4,9 @@ import Home from "./routes";
 import NotFound from "./routes/NotFound";
 import Auth from "./routes/Auth";
 import { Link } from "react-router-dom";
+import User from "./routes/app/profile/User";
+import RequireAuth from "./components/auth/RequireAuth";
+import CurrentUser from "./routes/app/profile/Currentuser";
 
 const App = () => {
   return (
@@ -15,6 +18,9 @@ const App = () => {
         <li>
           <Link to="/auth">Auth</Link>
         </li>
+        <li>
+          <Link to="/user">Profile</Link>
+        </li>
       </ul>
       <Routes>
         {/* Index */}
@@ -24,7 +30,15 @@ const App = () => {
         <Route path="/auth" element={<Auth />} />
 
         {/* App */}
-        {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+        <Route path="/user/:id" element={<User />} />
+        <Route
+          path="/user"
+          element={
+            <RequireAuth>
+              <CurrentUser />
+            </RequireAuth>
+          }
+        />
 
         {/* 404 Not found */}
         <Route path="*" element={<NotFound />} />
