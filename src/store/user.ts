@@ -1,13 +1,13 @@
 import { onAuthStateChanged, User } from "firebase/auth";
-import create from "zustand/react";
 import { auth } from "../firebase";
+import create from "zustand";
 
-const useCurrentUser = create((set) => ({
+interface ICurrentUserStore {
+  user: User | null;
+  setUser: (user: User | null) => void;
+}
+
+export const useCurrentUser = create<ICurrentUserStore>((set) => ({
   user: auth.currentUser,
-  setUser: (user: User | null) => set(() => ({ user })),
+  setUser: (user: User | null) => set((state) => ({ user })),
 }));
-
-const currentUser = useCurrentUser();
-onAuthStateChanged(auth, (user) => {
-  currentUser.setUser(user);
-});

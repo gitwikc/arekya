@@ -18,11 +18,10 @@ const Auth = () => {
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
+        const token = credential?.accessToken;
         // The signed-in user info.
         const user = result.user;
         // console.log(`Signed in as ${user.email}`);
-        // ...
       })
       .catch((error) => {
         // Handle Errors here.
@@ -32,11 +31,12 @@ const Auth = () => {
         const email = error.email;
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
       });
   };
 
   React.useEffect(() => {
+    // When signed in, takes user to the page desired before auth
+    // else homepage
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const redirectURL = state?.path || "/";

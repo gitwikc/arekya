@@ -1,18 +1,19 @@
 {
-  "name": "-",
+  "name": "arekya",
   "private": true,
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "firebase:emulator": "npx firebase emulators:start"
   },
   "dependencies": {
     "firebase": "^9.6.10",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.3.0",
-    "zustand": "^3.7.1"
+    "zustand": "^3.7.2"
   },
   "devDependencies": {
     "@types/react": "^17.0.33",

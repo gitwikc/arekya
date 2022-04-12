@@ -1,9 +1,13 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import * as React from "react";
 import { auth } from "../../firebase";
 import InputField from "../ui/InputField";
 
 const Login = () => {
+  const [existingAccount, setExistingAccount] = React.useState<boolean>(false);
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
   const [viewPassword, setViewPassword] = React.useState<boolean>(false);
@@ -11,10 +15,20 @@ const Login = () => {
 
   const handleSubmit: React.FormEventHandler = (e) => {
     e.preventDefault();
-    // Login using email, password
-    signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
-      console.log("Signed in as", userCredential.user);
-    });
+
+    if (existingAccount) {
+      // Login using email, password
+      signInWithEmailAndPassword(auth, email, password).then(
+        (userCredential) => {
+          console.log("Signed in as", userCredential.user);
+        }
+      );
+    } else {
+      // Create account with email & password
+      createUserWithEmailAndPassword(auth, email, password).then(({ user }) => {
+        console.log(`Created user ${user.displayName}`);
+      });
+    }
   };
 
   return (
@@ -44,7 +58,21 @@ const Login = () => {
           <label htmlFor="view_password">view password</label>
         </div>
         <div className="btn">
-          <button type="submit">Login</button>
+          <button type="submit">
+            {existingAccount ? "Create account" : "Login"}
+          </button>
+          <p>
+            <span
+              onClick={() => {
+                setExistingAccount((v) => !v);
+              }}
+              style={{
+                color: existingAccount ? "#0099ff" : "#f54557",
+              }}
+            >
+              Existing user?
+            </span>
+          </p>
         </div>
       </form>
     </div>
